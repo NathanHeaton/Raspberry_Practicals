@@ -60,18 +60,18 @@ def handleInput():
     if y > 230:
         currentSong = (currentSong + 1) % len(songs)
         changed = True
-        sleep(0.15) # Debounce movement
+        sleep(0.15)
     elif y < 170:
         currentSong = (currentSong - 1) % len(songs)
         changed = True
-        sleep(0.15) # Debounce movement
+        sleep(0.15)
         
     if x > 230:
         startSong = True
-        sleep(0.15) # Debounce movement
+        sleep(0.15)
     elif x < 170:
         stopSong = True
-        sleep(0.15) # Debounce movement
+        sleep(0.15)
         
     if changed:
         update_display()
