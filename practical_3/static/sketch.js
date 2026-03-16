@@ -4,6 +4,7 @@ let MAXHEIGHT = 800;
 let center = {x: MAXWIDTH/2,y: MAXHEIGHT/2}
 let bpm = 120;
 
+
 const accelData = {
     x:5,
     y:8,
@@ -15,6 +16,13 @@ const rotationData = {
     y:5,
     z:5
 }
+
+const socket = io();
+socket.on("sensor_data", data => {
+	console.log(data);
+	console.log("got Message");
+	});
+
 let accelColours;
 let rotationColours;
 
@@ -101,7 +109,6 @@ function sumArray(t_array){
   for (let i = 0 ; i < t_array.length; i++){
     value += t_array[i];
   }
-  console.log("total: ",value);
   return value
 }
 
@@ -125,7 +132,6 @@ function Draw_Accel_Data(){
       let pointX = center.x + runningRadius * cos(NewAngle);
       let pointY = center.y - runningRadius * sin(NewAngle);
       line(center.x, center.y, pointX, pointY);
-      //console.log("rn: ",runningRadius);
       runningRadius -= values.at(currentValue) * ValueStretch
     }
   }

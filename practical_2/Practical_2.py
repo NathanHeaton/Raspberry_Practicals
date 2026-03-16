@@ -86,7 +86,7 @@ while True:
     status_color = (0, 255, 0) if toggled else (0, 0, 255)
     status_text = "ACTIVE" if toggled else "PAUSED"
     cv2.putText(image, f"Status: {status_text}", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, status_color, 2)
-    cv2.putText(image, f"{label}: {round(confidence * 100, 1)}%", (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)
+    cv2.putText(image, f"{label}: {round(confidence * 100, 1)}%", (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 0, 0), 2)
     
     cv2.imshow("Pi Vision (TFLite)", image)
     
