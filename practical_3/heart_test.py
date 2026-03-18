@@ -33,8 +33,8 @@ def read_gyro_accel_temp():
 		accel_data = sensor.get_accel_data()
 		gyro_data = sensor.get_gyro_data()
 		temp = sensor.get_temp()	
-		print(temp)
-		time.sleep(0.01)
+		#print(temp)
+		#time.sleep(0.1)
 		with lock:
 			socketio.emit("temp_data", temp);
 			socketio.emit("gyro_data", gyro_data);

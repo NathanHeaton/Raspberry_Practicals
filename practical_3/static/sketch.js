@@ -10,12 +10,14 @@ let accelData = {
     y:8,
     z:10
 }
+let AccelDataStream = [];
 
 let rotationData = {
     x:5,
     y:5,
     z:5
 }
+let RotationDataStream = [];
 
 const socket = io();
 
@@ -23,7 +25,7 @@ socket.on("temp_data", data => {
 	temp = data;
 	});
 	
-let heartRateError = false	
+let heartRateError = false	;
 socket.on("heart_data", data => {
 	if (data < 0 || data > 300 )
 	{
@@ -38,6 +40,7 @@ socket.on("heart_data", data => {
 socket.on("gyro_data", data => {
 
 	rotationData = data;
+	RotationDataStream.push(rotationData); 
 	});
 	
 socket.on("accel_data", data => {
@@ -60,12 +63,16 @@ let shiftedIteration = 0;
 const AngleOffSet = 15 * Math.PI / 180;
 const RotationFixedOffSet = AngleOffSet/2;
 
-const ValueRotationStretch = 0.8;
-const ValueAcceletationStretch = 3;
+const ValueRotationStretch = 0.5;
+const ValueAcceletationStretch = 5;
 
 const InnerRingRadius = 120;
 const DataStrokeWidth = 12;
 
+
+let averageOfAccelData = [0,0,0];
+
+let averageOfRotationData = [0,0,0];
 
 function setup() {
   accelValues = Object.values(accelData); 
