@@ -81,16 +81,35 @@ function setup() {
   setupColours(255);
 }
 
+function getRunningAverageOfDataStream(data){
+  let output = [0,0,0]; 
+
+  for (let values = 0; values < data.length;values++ ){
+
+    for ( let i = 0; i < values.length; i ++){
+      output.i += data[values][i];
+    }
+    output[0] = output[0] / values;
+    output[1] = output[1] / values;
+    output[2] = output[2] / values;
+  }
+
+  return output;
+}
+
 function setupColours(alpha){
   accelColours = [color(170,205,129,alpha),color(237,145,126,alpha),color(208,157,210,alpha)]
   rotationColours = [color(91,174,202,alpha),color(154,195,175,alpha),color(118,120,209,alpha)]
 }
 
 let plot = true;
+
 function draw() {
   background(220);
   background("black");
 
+  accelValues = getRunningAverageOfDataStream(AccelDataStream);
+  rotationValues = getRunningAverageOfDataStream(rotationValues);
   Draw_Accel_Data();
   Draw_Rotation_Data();
 
@@ -103,12 +122,14 @@ function draw() {
   drawKeys();
 }
 
-const DisplayAccelData = setInterval(()=>{
+const commitData = setInterval(()=>{
   updateAllValues()
+  AccelDataStream.clear();
+  RotationDataStream.clear();
   if (previousAccelData.length > 30){
     previousAccelData.shift();
     previousRotationData.shift();
-    shiftedIteration++
+    shiftedIteration++;
   }
 
 },200)
